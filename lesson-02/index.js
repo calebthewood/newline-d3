@@ -54,16 +54,35 @@ async function drawChart() {
     .range([dimensions.boundedHeight, 0])
     .nice();
 
-  const dots = bounds.selectAll("circle")
-    .data(data);
 
-  console.log(dots);
 
-  dots.join("circle")
-    .attr("cx", d => xScale(xAccessor(d)))
-    .attr("cy", d => yScale(yAccessor(d)))
-    .attr("r", 5)
-    .attr("fill", "cornflowerblue");
+  function drawWithJoin() {
+    const dots = bounds.selectAll("circle")
+      .data(data);
+
+    console.log(dots);
+    // .join combines .enter(), .append(), .merge()
+    // great for just drawing a chart, but not useful for dynamic charts.
+    dots.join("circle")
+      .attr("cx", d => xScale(xAccessor(d)))
+      .attr("cy", d => yScale(yAccessor(d)))
+      .attr("r", 5)
+      .attr("fill", "cornflowerblue");
+  }
+
+  function drawWithEnterMerge() {
+    const dots = bounds.selectAll("circle")
+      .data(data);
+
+    dots
+      .enter().append("circle")
+      .merge(dots)
+      .attr("cx", d => xScale(xAccessor(d)))
+      .attr("cy", d => yScale(yAccessor(d)))
+      .attr("r", 5)
+      .attr("fill", "#212121");
+  }
+  drawWithEnterMerge()
 }
 
 drawChart();
