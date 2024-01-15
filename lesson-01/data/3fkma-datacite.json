@@ -1,0 +1,86 @@
+{
+  "alternateIdentifiers": [
+    {
+      "alternateIdentifier": "https://osf.io/3fkma",
+      "alternateIdentifierType": "URL"
+    }
+  ],
+  "contributors": [
+    {
+      "contributorName": {
+        "contributorName": "Center for Open Science",
+        "nameType": "Organizational"
+      },
+      "contributorType": "HostingInstitution",
+      "nameIdentifier": {
+        "nameIdentifier": "https://ror.org/05d5mza29",
+        "nameIdentifierScheme": "ROR"
+      }
+    }
+  ],
+  "creators": [
+    {
+      "creatorName": {
+        "creatorName": "Thomas Richardson",
+        "nameType": "Personal"
+      },
+      "nameIdentifier": {
+        "nameIdentifier": "https://www.linkedin.com/in/thomas-richardson-809777179/",
+        "nameIdentifierScheme": "URL"
+      }
+    }
+  ],
+  "dates": [
+    {
+      "date": "2019-04-20",
+      "dateType": "Created"
+    },
+    {
+      "date": "2019-04-20",
+      "dateType": "Updated"
+    }
+  ],
+  "descriptions": [],
+  "fundingReferences": [],
+  "identifier": {
+    "identifier": "https://osf.io/3fkma",
+    "identifierType": "URL"
+  },
+  "publicationYear": "2019",
+  "publisher": "OSF",
+  "relatedIdentifiers": [
+    {
+      "relatedIdentifier": "10.17605/OSF.IO/X3UNR",
+      "relatedIdentifierType": "DOI",
+      "relationType": "IsPartOf"
+    }
+  ],
+  "relatedItems": [
+    {
+      "publicationYear": "2019",
+      "publisher": "OSF",
+      "relatedItemIdentifier": {
+        "relatedItemIdentifier": "10.17605/OSF.IO/X3UNR",
+        "relatedItemIdentifierType": "DOI"
+      },
+      "relatedItemType": "Text",
+      "relationType": "IsPartOf",
+      "titles": [
+        {
+          "title": "Left-handed fighters are overrepresented and more successful in combat sports"
+        }
+      ]
+    }
+  ],
+  "resourceType": {
+    "resourceType": "File",
+    "resourceTypeGeneral": "Text"
+  },
+  "rightsList": [],
+  "subjects": [],
+  "titles": [
+    {
+      "title": "MMA_fighters.csv"
+    }
+  ]
+}

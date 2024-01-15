@@ -71,8 +71,25 @@ async function drawLineChart() {
   const line = bounds.append("path")
     .attr("d", lineGenerator(data))
     .attr("fill", "none")
-    .attr("stroke", "cornflowerblue");
+    .attr("stroke", "cornflowerblue")
+    .attr("stroke-width", 2);
+
+  // draw peripheries
+  const yAxisGenerator = d3.axisLeft()
+    .scale(yScale);
+
+  const yAxis = bounds.append("g")
+    .call(yAxisGenerator);
+
+  const xAxisGenerator = d3.axisBottom()
+    .scale(xScale);
+
+  const xAxis = bounds.append("g")
+    .call(xAxisGenerator)
+    .style("transform", `translateY(${
+      dimensions.boundedHeight
+    }px)`)
 
 }
 
-drawLineChart();
+// drawLineChart();
