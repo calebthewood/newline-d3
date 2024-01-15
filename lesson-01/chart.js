@@ -3,7 +3,7 @@
 
 async function drawLineChart() {
   // write your code here
-  const data = await d3.json("./data/my_weather_data.json");
+  const data = await d3.json("../data/my_weather_data.json");
 
   const parseDate = d3.timeParse("%Y-%m-%d");
   /* this type of function is called an accessor in d3 context.

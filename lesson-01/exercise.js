@@ -7,7 +7,7 @@
  *   [ ] averageHeight/years
  */
 async function drawChart() {
-  let data = await d3.csv("./data/HistoricalLighthouses.csv");
+  let data = await d3.csv("../data/HistoricalLighthouses.csv");
   // data = parseReachByYear(data);
   data = avgHeightByYear(data);
 
