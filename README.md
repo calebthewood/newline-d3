@@ -7,3 +7,12 @@ A repo for tracking progress as I work through [newline's D3 Masterclass](https:
 ### Lesson 2: Drawing a Scatter Chart
 - Solidifying principals started in Lesson 1. Taking a deeper look the process of setting up
 a d3 data viz: accessing data, creating dimensions, drawing canvas and wrapper, creating scales, drawing data, drawing peripherals, adding interactions.
+Square is ideal for scatterplots b/c we're comparing two values, visually and keeping
+them proportional ensures we're viewing them accurately. To ensure we get the max
+space possible whether we're landscape or portrait we can check height and width;
+choosing the smaller to be our height and width. Also learned about D3.min which
+is similar to Math.min, but won't return 0 for null or NaN for undefined or strings.
+In general. It does return undefined for empty arrays.
+
+- the *wrapper* is your entire SVG element, containing your axes, data elements, and legends
+- the *bounds* live inside of the wrapper, containing just the data elements
