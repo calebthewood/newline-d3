@@ -54,8 +54,6 @@ async function drawChart() {
     .range([dimensions.boundedHeight, 0])
     .nice();
 
-
-
   function drawWithJoin() {
     const dots = bounds.selectAll("circle")
       .data(data);
@@ -82,7 +80,38 @@ async function drawChart() {
       .attr("r", 5)
       .attr("fill", "#212121");
   }
-  drawWithEnterMerge()
+  drawWithEnterMerge();
+
+  const xAxisGenerator = d3.axisBottom()
+    .scale(xScale);
+
+  const xAxis = bounds.append("g")
+    .call(xAxisGenerator)
+    .style("transform", `translateY(${dimensions.boundedHeight}px)`);
+
+  const xAxisLabel = xAxis.append("text")
+    .attr("x", dimensions.boundedWidth / 2)
+    .attr("y", dimensions.margin.bottom - 10)
+    .attr("fill", "black")
+    .style("font-size", "1.4em")
+    .html("Dew point (&deg;F)");
+
+  const yAxisGenerator = d3.axisLeft()
+    .scale(yScale)
+    .ticks(4); // ticks is a suggestion, d3 will pick it's own nice even numbers
+
+  const yAxis = bounds.append("g")
+    .call(yAxisGenerator);
+
+  const yAxisLabel = yAxis.append("text")
+    .attr("x", -dimensions.boundedHeight / 2) // got hung up here b/c I didn't see the "-"
+    .attr("y", -dimensions.margin.left + 10)  // take note!
+    .attr("fill", "black")
+    .style("font-size", "1.4em")
+    .style("transform", "rotate(-90deg)")
+    .style("text-anchor", "middle")
+    .html("Relative humidity")
+
 }
 
 drawChart();
