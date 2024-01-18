@@ -1,10 +1,10 @@
-async function drawBars() {
 
+async function drawBars(field) {
   // 1. Access Data
   const data = await d3.json("../data/my_weather_data.json");
 
   /** X Axis: Humidity */
-  const xAccessor = d => d.humidity;
+  const xAccessor = d => d[field];
   /** Y Axis: Length */
   const yAccessor = d => d.length;
 
@@ -33,6 +33,7 @@ async function drawBars() {
   // 3. Draw Canvas
 
   const wrapper = d3.select("#wrapper")
+    .html(null) // makes sure div is clear before appending new chart
     .append("svg")
     .attr("width", dimensions.width)
     .attr("height", dimensions.height);
@@ -126,7 +127,12 @@ async function drawBars() {
     .attr("y", dimensions.margin.bottom - 10)
     .attr("fill", "black")
     .style("font-size", "1.4em")
-    .text("Humidity");
+    .text(field);
 }
 
-drawBars();
+const fieldInput = document.getElementById("field-input");
+const submit = document
+  .getElementById("submit-btn")
+  .addEventListener("click", () => drawBars(fieldInput.value));
+
+drawBars("humidity");
