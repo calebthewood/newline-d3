@@ -16,3 +16,7 @@ In general. It does return undefined for empty arrays.
 
 - the *wrapper* is your entire SVG element, containing your axes, data elements, and legends
 - the *bounds* live inside of the wrapper, containing just the data elements
+
+### Lesson 3: Histograms
+
+## Lesson 4: Animations
