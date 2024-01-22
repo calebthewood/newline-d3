@@ -1,6 +1,6 @@
-const BAR_COLOR = "cornflowerblue";
+const BAR_COLOR = "#c44569";
 const Y_COLOR = "darkgrey";
-const MEAN_COLOR = "maroon";
+const MEAN_COLOR = "#574b90";
 
 const sammple = {
   century: "1500",
@@ -17,7 +17,77 @@ const sammple = {
   year: "NA"
 };
 
+const deathsByField = (data, field) => {
+  const freqs = {};
+  const output = [];
+  data.forEach(record => {
+    console.log(record);
+    if (record[record[field]] in freqs) {
+      freqs[field] += Number(record?.deaths) || 0;
+    } else {
+      freqs[record[field]] = Number(record?.deaths) || 0;
+    }
+  });
+  console.table(freqs);
 
+  const deathFreqs = Object.entries(freqs);
+  console.log("FREQS: ", deathFreqs);
+
+  let current = deathFreqs.pop();
+  while (current) {
+    const [year, deaths] = current;
+
+    const yearIdx = output.findIndex(item => item.year === year);
+
+    if (yearIdx === -1) {
+      output.push({
+        year: year,
+        deaths: deaths
+      });
+    } else {
+      output[yearIdx].deaths += deaths;
+    }
+
+    current = deathFreqs.pop();
+  }
+
+  console.log(output);
+  return output;
+};
+/**
+ * @param {{
+ *  year: string,
+ *  decade: string,
+ *  century: string,
+ *  city: string,
+ *  deaths: string
+ *  "gadm.adm0": string
+ * }[]} data
+ * @returns {{
+ *        year: string,
+  *       decade: string,
+  *       century: string,
+  *       country: string,
+  *    }[]}
+ * */
+function deathRecord(data) {
+  const output = [];
+  const len = data.length;
+  let record = data.pop();
+  for (let i = 1; i < len; i++) {
+    const { year, decade, century, deaths } = record;
+    for (let j = 0; j < deaths; j++) {
+      output.push({
+        year,
+        decade,
+        century,
+        country: record["gadm.adm0"],
+      });
+    }
+    record = data.pop();
+  }
+  return output;
+}
 
 async function drawBars() {
   const dataset = await d3.csv("../data/trials.csv");
@@ -25,48 +95,12 @@ async function drawBars() {
   // need to aggregate it aling some metric first. Like deaths/year, deaths/location
   // deaths/century.
 
-  const deathsByField = (data, field) => {
-    const freqs = {};
-    const output = [];
-    data.forEach(record => {
-      console.log(record);
-      if (record[record[field]] in freqs) {
-        freqs[field] += Number(record?.deaths) || 0;
-      } else {
-        freqs[record[field]] = Number(record?.deaths) || 0;
-      }
-    });
-    console.table(freqs);
 
-    const deathFreqs = Object.entries(freqs);
-    console.log("FREQS: ", deathFreqs);
 
-    let current = deathFreqs.pop();
-    while (current) {
-      const [year, deaths] = current;
+  const data = deathRecord(dataset);
+  console.log(data);
 
-      const yearIdx = output.findIndex(item => item.year === year);
-
-      if (yearIdx === -1) {
-        output.push({
-          year: year,
-          deaths: deaths
-        });
-      } else {
-        output[yearIdx].deaths += deaths;
-      }
-
-      current = deathFreqs.pop();
-    }
-
-    console.log(output);
-    return output;
-  };
-
-  const data = deathsByField(dataset, "decade");
-  console.log(data[0]);
-
-  const metricAccessor = d => d.deaths;
+  const metricAccessor = d => d.decade;
   const yAccessor = d => d.length;
 
   const width = 600;
@@ -75,7 +109,7 @@ async function drawBars() {
     height: width * 0.6,
     margin: {
       top: 30,
-      right: 10,
+      right: 50,
       bottom: 50,
       left: 50,
     }
