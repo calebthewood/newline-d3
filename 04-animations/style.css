@@ -1,3 +1,8 @@
+.wrapper {
+    background-color: #f5cd79;
+    border-radius: 5px;;
+}
+
 .bin rect {
     fill: cornflowerblue;
     transition: height 1s ease-out,

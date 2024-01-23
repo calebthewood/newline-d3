@@ -12,9 +12,9 @@ async function drawBars() {
     height: width * 0.6,
     margin: {
       top: 30,
-      right: 10,
+      right: 30,
       bottom: 50,
-      left: 50,
+      left: 30,
     },
   }
   dimensions.boundedWidth = dimensions.width - dimensions.margin.left - dimensions.margin.right
