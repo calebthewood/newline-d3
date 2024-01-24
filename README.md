@@ -19,4 +19,11 @@ In general. It does return undefined for empty arrays.
 
 ### Lesson 3: Histograms
 
+Learned to draw histograms and bar charts. Added chart annotations. Incorporated
+clickity clackity buttons for interactivity. Transformed data to useful format.
+
 ## Lesson 4: Animations
+
+Note to self, svg animations exist, but they should be avoided. Use CSS. JS
+animations also exist, but whenever possible, use CSS. It's better, more and
+more performant.
