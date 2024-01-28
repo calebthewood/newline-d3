@@ -1,0 +1,19 @@
+body {
+    background-color: #dff9fb;
+}
+
+.freezing {
+    fill: #63cdda;
+}
+
+.line {
+    fill: none;
+    stroke: #f5cd79;
+    stroke-width: 2;
+}
+
+.x-axis-label {
+    fill: #303952;
+    font-size: 1.4em;
+    text-transform: capitalize;
+}
