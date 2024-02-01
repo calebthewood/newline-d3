@@ -27,3 +27,11 @@ clickity clackity buttons for interactivity. Transformed data to useful format.
 Note to self, svg animations exist, but they should be avoided. Use CSS. JS
 animations also exist, but whenever possible, use CSS. It's better, more and
 more performant.
+
+## Lesson 5: Animating Line Graph
+
+## Lesson 6: Interactions
+
+### Browser Events
+Browser has a wide array of events we can listen for and repsond to. Most common being the click event.
+
