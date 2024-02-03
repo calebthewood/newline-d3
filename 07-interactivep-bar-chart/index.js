@@ -24,22 +24,22 @@ async function drawBars() {
 
   const wrapper = d3.select("#wrapper")
     .append("svg")
-      .attr("width", dimensions.width)
-      .attr("height", dimensions.height)
+    .attr("width", dimensions.width)
+    .attr("height", dimensions.height)
 
   const bounds = wrapper.append("g")
-      .style("transform", `translate(${dimensions.margin.left}px, ${dimensions.margin.top}px)`)
+    .style("transform", `translate(${dimensions.margin.left}px, ${dimensions.margin.top}px)`)
 
   // init static elements
   bounds.append("g")
-      .attr("class", "bins")
+    .attr("class", "bins")
   bounds.append("line")
-      .attr("class", "mean")
+    .attr("class", "mean")
   bounds.append("g")
-      .attr("class", "x-axis")
-      .style("transform", `translateY(${dimensions.boundedHeight}px)`)
+    .attr("class", "x-axis")
+    .style("transform", `translateY(${dimensions.boundedHeight}px)`)
     .append("text")
-      .attr("class", "x-axis-label")
+    .attr("class", "x-axis-label")
 
   const drawHistogram = metric => {
     const metricAccessor = d => d[metric]
@@ -75,7 +75,7 @@ async function drawBars() {
     binGroups.exit().remove()
 
     const newBinGroups = binGroups.enter().append("g")
-        .attr("class", "bin")
+      .attr("class", "bin")
 
     newBinGroups.append("rect")
     newBinGroups.append("text")
@@ -84,28 +84,26 @@ async function drawBars() {
     binGroups = newBinGroups.merge(binGroups)
 
     const barRects = binGroups.select("rect")
-        .attr("x", d => xScale(d.x0) + barPadding)
-        .attr("y", d => yScale(yAccessor(d)))
-        .attr("width", d => d3.max([
-          0,
-          xScale(d.x1) - xScale(d.x0) - barPadding
-        ]))
-        .attr("height", d => dimensions.boundedHeight - yScale(yAccessor(d)))
+      .attr("x", d => xScale(d.x0) + barPadding)
+      .attr("y", d => yScale(yAccessor(d)))
+      .attr("width", d => d3.max([
+        0,
+        xScale(d.x1) - xScale(d.x0) - barPadding
+      ]))
+      .attr("height", d => dimensions.boundedHeight - yScale(yAccessor(d)))
 
     const barText = binGroups.select("text")
-        .attr("x", d => xScale(d.x0) + (xScale(d.x1) - xScale(d.x0)) / 2)
-        .text(yAccessor)
-        .style("transform", d => `translateY(${
-           yScale(yAccessor(d)) - 5
+      .attr("x", d => xScale(d.x0) + (xScale(d.x1) - xScale(d.x0)) / 2)
+      .text(yAccessor)
+      .style("transform", d => `translateY(${yScale(yAccessor(d)) - 5
         }px)`)
 
     const mean = d3.mean(dataset, metricAccessor)
 
     const meanLine = bounds.selectAll(".mean")
-        .attr("y1", -20)
-        .attr("y2", dimensions.boundedHeight)
-        .style("transform", `translateX(${
-          xScale(mean)
+      .attr("y1", -20)
+      .attr("y2", dimensions.boundedHeight)
+      .style("transform", `translateX(${xScale(mean)
         }px)`)
 
     // 6. Draw peripherals
@@ -117,9 +115,9 @@ async function drawBars() {
       .call(xAxisGenerator)
 
     const xAxisLabel = xAxis.select(".x-axis-label")
-        .attr("x", dimensions.boundedWidth / 2)
-        .attr("y", dimensions.margin.bottom - 10)
-        .text(metric)
+      .attr("x", dimensions.boundedWidth / 2)
+      .attr("y", dimensions.margin.bottom - 10)
+      .text(metric)
   }
 
   const metrics = [
@@ -135,9 +133,27 @@ async function drawBars() {
   let selectedMetricIndex = 0
   drawHistogram(metrics[selectedMetricIndex])
 
+  // 7. Create Interactions
+
+  const tooltip = d3.select("#tooltip");
+
+  binGroups.on("mouseenter", onMouseEnter)
+    .on("mouseleave", onmouseleave);
+
+  function onMouseEnter() {
+    console.log(d);
+    tooltip.select("#range")
+      .text([
+        d.x0,
+        d.x1
+      ]).join(" - ")
+  }
+
+
+
   const button = d3.select("body")
     .append("button")
-      .text("Change metric")
+    .text("Change metric")
 
   button.node().addEventListener("click", onClick)
   function onClick() {

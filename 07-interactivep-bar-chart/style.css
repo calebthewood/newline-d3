@@ -1,5 +1,5 @@
 .wrapper {
-    background-color: #f5cd79;
+    /* background-color: #f5cd79; */
     border-radius: 5px;
     position: relative;
 }
@@ -74,7 +74,7 @@ button:active {
 }
 
 .tooltip {
-    opacity: 0;
+    /* opacity: 0; */
     position: absolute;
     top: -12px;
     left: 0;
