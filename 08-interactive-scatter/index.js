@@ -75,19 +75,24 @@ dots.join("circle")
   .attr("r", 5)
   .attr("fill", d => colorScale(colorAccessor(d)));
 
-// function drawWithEnterMerge() {
-//   const dots = bounds.selectAll("circle")
-//     .data(data);
 
-//   dots
-//     .enter().append("circle")
-//     .merge(dots)
-//     .attr("cx", d => xScale(xAccessor(d)))
-//     .attr("cy", d => yScale(yAccessor(d)))
-//     .attr("r", 5)
-//     .attr("fill", d => colorScale(colorAccessor(d)));
-// }
-// drawWithEnterMerge();
+const delaunay = d3.Delaunay.from(
+  data,
+  d => xScale(xAccessor(d)),
+  d => yScale(yAccessor(d)),
+);
+
+const voronoi = delaunay.voronoi();
+voronoi.xmax = dimensions.boundedWidth;
+voronoi.ymax = dimensions.boundedHeight;
+
+bounds.selectAll(".voronoi")
+  .data(data)
+  .join("path")
+  .attr("class", "voronoi")
+  .attr("d", (d, i) => voronoi.renderCell(i))
+  .attr("stroke", "salmon");
+
 
 const xAxisGenerator = d3.axisBottom()
   .scale(xScale);
@@ -120,13 +125,21 @@ const yAxisLabel = yAxis.append("text")
   .html(Y_LABEL);
 
 
-bounds.selectAll("circle")
+bounds.selectAll(".voronoi")
   .on("mouseenter", onMouseEnter)
   .on("mouseleave", onMouseLeave);
 
 const tooltip = d3.select("#tooltip");
 
 function onMouseEnter(event, d) {
+
+  const dayDot = bounds.append("circle")
+    .attr("class", "tooltipDot")
+    .attr("cx", xScale(xAccessor(d)))
+    .attr("cy", yScale(yAccessor(d)))
+    .attr("r", 7)
+    .style("fill", "maroon")
+    .style("pointer-events", "none");
 
   const formatHumidity = d3.format(".2f");
   tooltip.select("#humidity")
@@ -169,4 +182,6 @@ function onMouseEnter(event, d) {
 
 function onMouseLeave() {
   tooltip.style("opacity", 0);
+  d3.selectAll(".tooltipDot")
+    .remove();
 }

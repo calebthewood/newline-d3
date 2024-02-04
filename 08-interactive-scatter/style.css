@@ -4,6 +4,11 @@
     position: relative;
 }
 
+.voronoi {
+    fill: transparent;
+    stroke: transparent;
+}
+
 .tooltip {
     opacity: 0;
     position: absolute;
@@ -38,4 +43,8 @@
 .tooltip-range {
     margin-bottom: 0.2em;
     font-weight: 600;
+}
+
+.tooltipDot {
+    transition: all 1000ms ease-in;
 }
