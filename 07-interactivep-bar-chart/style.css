@@ -1,13 +1,11 @@
 .wrapper {
     /* background-color: #f5cd79; */
-    border-radius: 5px;
+    /* border-radius: 5px; */
     position: relative;
 }
 
 .bin rect {
     fill: cornflowerblue;
-    transition: height 1s ease-out,
-        y 1s ease-out;
 }
 
 .bin rect:hover {
@@ -39,42 +37,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2em;
-}
-
-button {
-    font-size: 1.2em;
-    margin-left: 1em;
-    padding: 0.5em 1em;
-    appearance: none;
-    -webkit-appearance: none;
-    background: darkseagreen;
-    color: white;
-    border: none;
-    box-shadow: 0 5px 0 0 seagreen;
-    border-radius: 6px;
-    font-weight: 600;
-    outline: none;
-    cursor: pointer;
-    transition: all 0.1s ease-out;
-}
-
-button:hover,
-button:focus {
-    background: #73b173;
-    box-shadow: 0 4px 0 0 seagreen;
-    transform: translateY(1px);
-}
-
-button:hover:active,
-button:focus:active,
-button:active {
-    box-shadow: 0 1px 0 0 seagreen;
-    transform: translateY(4px);
+    padding: 5em 2em;
+    font-family: sans-serif;
 }
 
 .tooltip {
-    /* opacity: 0; */
+    opacity: 0;
     position: absolute;
     top: -12px;
     left: 0;
