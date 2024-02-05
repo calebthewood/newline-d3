@@ -65,3 +65,7 @@ body {
     /* WHoah! mix-blend-mode, look at that. */
     mix-blend-mode: multiply;
 }
+
+.precipitation-dot {
+    opacity: 0.5;
+}
