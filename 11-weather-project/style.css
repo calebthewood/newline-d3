@@ -73,7 +73,7 @@ svg {
     fill: #c8d6e5;
     opacity: 0.6;
     /* WHoah! mix-blend-mode, look at that. */
-    mix-blend-mode: multiply;
+    /* mix-blend-mode: multiply; */
 }
 
 .precipitation-dot {
@@ -109,4 +109,14 @@ svg {
     border: 1px solid #ddd;
     z-index: 10;
     pointer-events: none;
+}
+
+.listener-circle {
+    fill: transparent;
+}
+
+.tooltip-line {
+    pointer-events: none;
+    fill: #8395a7;
+    mix-blend-mode: multiply;
 }
