@@ -281,7 +281,9 @@ async function drawChart() {
       .attr("y", labelY + (16 * (i + 1)))
       .text(precipType);
   });
+
   // 7. Set up interactions
+
 
 }
 

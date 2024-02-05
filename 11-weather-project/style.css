@@ -22,6 +22,10 @@ svg {
     The other opetion is to create space around or within the chart.*/
 }
 
+.wrapper {
+    position: relative;
+}
+
 .title {
     position: relative;
     width: 600px;
@@ -89,4 +93,20 @@ svg {
 
 .month-text {
     font-size: .7em;
+}
+
+.tooltip {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15em;
+    padding: 0.6 1em;
+    background: #fff;
+    text-align: center;
+    line-height: 1.4em;
+    font-size: 0.9em;
+    border: 1px solid #ddd;
+    z-index: 10;
+    pointer-events: none;
 }
