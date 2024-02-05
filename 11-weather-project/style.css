@@ -54,3 +54,7 @@ body {
     opacity: 0.15;
 }
 
+.uv-line {
+    stroke: #feca57;
+    stroke-width: 2;
+}
