@@ -74,6 +74,19 @@ async function drawChart() {
     .range([0, dimensions.boundedRadius])
     .nice();
 
+  /* Circle Geometry!
+    area = 2 * PI * r
+    radius = sqrt(area) / PI
+
+    Note that radius and area do not scale linearly for circles
+    a doubling the radius may roughly quadruple the area. We also
+    don't percieve circle area linearly. For these reasons, we adjust
+    circle areas on sqrt scale
+  */
+  const cloudRadiusScale = d3.scaleSqrt()
+    .domain(d3.extent(dataset, cloudAccessor))
+    .range([1, 10]);
+
   // 5. Draw Data
 
   const getCoordinatesForAngle = (angle, offset = 1) => [
@@ -188,6 +201,17 @@ async function drawChart() {
     .attr("x2", d => getXFromDataPoint(d, uvOffset + 0.1))
     .attr("y1", d => getYFromDataPoint(d, uvOffset))
     .attr("y2", d => getYFromDataPoint(d, uvOffset + 0.1));
+
+  const cloudGroup = bounds.append("g");
+  const cloudOffset = 1.27;
+
+  const clouDots = cloudGroup.selectAll("circle")
+    .data(dataset)
+    .join("circle")
+    .attr("class","cloud-dot")
+    .attr("cx", d => getXFromDataPoint(d, cloudOffset))
+    .attr("cy", d => getYFromDataPoint(d, cloudOffset))
+    .attr("r", d => cloudRadiusScale(cloudAccessor(d)));
 
   // 7. Set up interactions
 
