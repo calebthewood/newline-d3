@@ -16,6 +16,12 @@ body {
     background: #f8f9fa;
 }
 
+svg {
+    overflow: visible;
+    /* confirm this doesn't interfere with other elements on page.
+    The other opetion is to create space around or within the chart.*/
+}
+
 .title {
     position: relative;
     width: 600px;
@@ -68,4 +74,19 @@ body {
 
 .precipitation-dot {
     opacity: 0.5;
+}
+
+.annotation-line {
+    stroke: #34495e;
+    opacity: 0.4;
+}
+
+.annotations-text {
+    fill: #34495e;
+    font-size:  0.7em;
+    dominant-baseline: middle;
+}
+
+.month-text {
+    font-size: .7em;
 }

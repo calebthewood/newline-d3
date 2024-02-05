@@ -145,6 +145,7 @@ async function drawChart() {
 
     const [labelX, labelY] = getCoordinatesForAngle(angle, 1.38);
     peripherals.append("text")
+      .attr("class", "month-text")
       .attr("x", labelX)
       .attr("y", labelY)
       .text(d3.timeFormat("%b")(month))
@@ -235,6 +236,51 @@ async function drawChart() {
     .style("fill", d => precipitationTypeColorScale(
       precipitationTypeAccessor(d)
     ));
+
+
+  const annotationsGroup = bounds.append("g");
+
+  const drawAnnotations = (angle, offset, text) => {
+    const [x1, y1] = getCoordinatesForAngle(angle, offset);
+    const [x2, y2] = getCoordinatesForAngle(angle, 1.6);
+
+    annotationsGroup.append("line")
+      .attr("x1", x1)
+      .attr("x2", x2)
+      .attr("y1", y1)
+      .attr("y2", y2)
+      .attr("class", "annotation-line");
+
+    annotationsGroup.append("text")
+      .attr("x", x2 + 6)
+      .attr("y", y2)
+      .attr("class", "annotations-text")
+      .text(text);
+  };
+
+  drawAnnotations(Math.PI * 0.23, cloudOffset, "Cloud Cover"); // radians, not degrees
+  drawAnnotations(Math.PI * 0.26, precipitationOffset, "Precipitation"); // radians, not degrees
+  drawAnnotations(Math.PI * 0.734, uvOffset, `UV Index > ${uvIndexThreshold}`); // radians, not degrees
+  drawAnnotations(Math.PI * 0.7, 0.5, `Temperature`); // radians, not degrees
+  drawAnnotations(Math.PI * 0.9, radiusScale(32) / dimensions.boundedRadius, `Freezing`); // radians, not degrees
+
+
+  precipitationTypes.forEach((precipType, i) => {
+    const [labelX, labelY] = getCoordinatesForAngle(Math.PI * 0.26, 1.6);
+
+    annotationsGroup.append("circle")
+      .attr("cx", labelX + 15)
+      .attr("cy", labelY + (16 * (i + 1)))
+      .attr("r", 4)
+      .style("opacity", 0.7)
+      .attr("fill", precipitationTypeColorScale(precipType));
+
+    annotationsGroup.append("text")
+      .attr("class", "annotations-text")
+      .attr("x", labelX + 25)
+      .attr("y", labelY + (16 * (i + 1)))
+      .text(precipType);
+  });
   // 7. Set up interactions
 
 }
