@@ -1,6 +1,9 @@
 /* Import and use the Inter font https://rsms.me/inter/ */
 @import url('https://rsms.me/inter/inter.css');
-html { font-family: 'Inter', sans-serif; }
+
+html {
+    font-family: 'Inter', sans-serif;
+}
 
 body {
     display: flex;
@@ -45,3 +48,9 @@ body {
     font-size: 0.7em;
     dominant-baseline: middle;
 }
+
+.freezing-circle {
+    fill: #28b8b8;
+    opacity: 0.15;
+}
+

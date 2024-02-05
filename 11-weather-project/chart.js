@@ -32,7 +32,6 @@ async function drawChart() {
   dimensions.boundedHeight = dimensions.height - dimensions.margin.top - dimensions.margin.bottom;
   dimensions.boundedRadius = dimensions.radius - ((dimensions.margin.left + dimensions.margin.right) / 2);
 
-
   // 3. Draw Canvas
 
   const wrapper = d3.select("#wrapper")
@@ -44,6 +43,21 @@ async function drawChart() {
     .style("transform", `translate(${dimensions.margin.left + dimensions.boundedRadius
       }px, ${dimensions.margin.top + dimensions.boundedRadius
       }px)`);
+
+
+  const defs = wrapper.append("defs");
+  const gradientId = "temperature-gradient";
+  const gradient = defs.append("radialGradient")
+    .attr("id", gradientId);
+  const numStops = 10;
+  const gradientColorScale = d3.interpolateYlOrRd; // check out other color options
+  d3.range(numStops).forEach(i => {
+    gradient.append("stop")
+      .attr("offset", `${i * 100 / (numStops - 1)}%`)
+      .attr("stop-color", gradientColorScale(
+        i / (numStops - 1)
+      ));
+  });
 
   // 4. Create Scales
 
@@ -90,6 +104,8 @@ async function drawChart() {
       angleScale(dateAccessor(d)), offset
     )[1]
   );
+
+  const containsFreezing = radiusScale.domain()[0] < 32;
 
   // 6. Draw Peripherals
 
@@ -141,6 +157,24 @@ async function drawChart() {
       .attr("class", "tick-label-temperature")
       .html(`${d3.format(".0f")(d)}°F`);
   });
+
+  if (containsFreezing) {
+    const freezingCircle = bounds.append("circle")
+      .attr("r", radiusScale(32))
+      .attr("class", "freezing-circle");
+  }
+
+  /* because we're working with a circle where the radian is determined
+  by the date, angle here corresponds to a date, moving around the circle
+  is progressing forward through our data's dates */
+  const areaGenerator = d3.areaRadial()
+    .angle(d => angleScale(dateAccessor(d)))
+    .innerRadius(d => radiusScale(temperatureMinAccessor(d)))
+    .outerRadius(d => radiusScale(temperatureMaxAccessor(d)));
+
+  const area = bounds.append("path")
+    .attr("d", areaGenerator(dataset))
+    .style("fill", `url(#${gradientId})`)
 
   // 7. Set up interactions
 
