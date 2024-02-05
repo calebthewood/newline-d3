@@ -26,3 +26,22 @@ body {
     align-items: center;
     font-feature-settings: 'tnum' 1;
 }
+
+.grid-line {
+    fill: none;
+    stroke: #dadadd;
+}
+
+.tick-label {
+    dominant-baseline: middle;
+    fill: #8395a7;
+    font-size: 0.7em;
+    font-weight: 900;
+}
+
+.tick-label-temperature {
+    fill: #8395a7;
+    opacity: 0.7;
+    font-size: 0.7em;
+    dominant-baseline: middle;
+}
