@@ -31,10 +31,18 @@ const Timeline = ({ data, xAccessor, yAccessor, label }) => {
           data={data}
           xAccessor={xAccessorScaled}
           yAccessor={yAccessorScaled}
-          // interpolation={d3.curveStepAfter}
-          // interpolation={d3.curveLinear}
+        // interpolation={d3.curveStepAfter}
+        // interpolation={d3.curveLinear}
         >
         </Line>
+        <Axis
+          dimension="x"
+          scale={xScale}
+        />
+        <Axis
+          dimension="y"
+          scale={yScale}
+        />
       </Chart>
     </div>
   );
