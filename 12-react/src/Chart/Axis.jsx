@@ -29,6 +29,7 @@ Axis.propTypes = {
 };
 
 const formatNumber = d3.format(",");
+const formatDate = d3.timeFormat("%-b %-d");
 Axis.defaultProps = {
   dimension: "x",
   scale: null,
@@ -39,15 +40,70 @@ export default Axis;
 
 
 function AxisHorizontal({ dimensions, label, formatTick, scale, ...props }) {
+  const numberOfTicks = dimensions.boundedWidth < 600
+    ? dimensions.boundedWidth / 100
+    : dimensions.boundedWidth / 250;
+
+  const ticks = scale.ticks(numberOfTicks);
+
   return (
-    <g className="Axis AxisHorizontal" {...props}>
+    <g className="Axis AxisHorizontal" {...props} transform={`translate(0, ${dimensions.boundedHeight})`}>
+      <line
+        className="Axis__line"
+        x2={dimensions.boundedWidth}
+      />
+      {ticks.map((tick, i) => (
+        <text
+          key={i}
+          className="Axis__tick"
+          transform={`translate(${scale(tick)}, 25)`}
+        >
+          {formatDate(tick)}
+        </text>
+      ))}
+      {label && (
+        <text
+          className="Axis__label"
+          transform={`translate(${dimensions.boundedWidth / 2
+            }, 40)`}>
+          {label}
+        </text>
+      )}
     </g>
   );
 }
 
 function AxisVertical({ dimensions, label, formatTick, scale, ...props }) {
+  const numberOfTicks = dimensions.boundedHeight / 70;
+  const ticks = scale.ticks(numberOfTicks);
+
   return (
     <g className="Axis AxisVertical" {...props}>
+      <line
+        className="Axis__line"
+        y2={dimensions.boundedHeight}
+        ticks
+      />
+
+      {ticks.map((tick, i) => (
+        <text
+          key={tick}
+          className="Axis__tick"
+          transform={`translate(-16, ${scale(tick)})`}
+        >
+          {formatTick(tick)}
+        </text>
+      ))}
+      {label && (
+        <text
+          className="Axis__label"
+          style={{
+            transform: `translate(-56px, ${dimensions.boundedHeight / 2
+              }px) rotate(-90deg)`
+          }}
+        >
+          {label}
+        </text>)}
     </g>
   );
 }
