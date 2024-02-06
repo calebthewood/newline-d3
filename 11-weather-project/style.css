@@ -18,12 +18,6 @@ body {
 
 svg {
     overflow: visible;
-    /* confirm this doesn't interfere with other elements on page.
-    The other opetion is to create space around or within the chart.*/
-}
-
-.wrapper {
-    position: relative;
 }
 
 .title {
@@ -60,7 +54,7 @@ svg {
 }
 
 .freezing-circle {
-    fill: #28b8b8;
+    fill: #00d2d3;
     opacity: 0.15;
 }
 
@@ -72,12 +66,6 @@ svg {
 .cloud-dot {
     fill: #c8d6e5;
     opacity: 0.6;
-    /* WHoah! mix-blend-mode, look at that. */
-    /* mix-blend-mode: multiply; */
-}
-
-.precipitation-dot {
-    opacity: 0.5;
 }
 
 .annotation-line {
@@ -85,23 +73,26 @@ svg {
     opacity: 0.4;
 }
 
-.annotations-text {
+.annotation-text {
     fill: #34495e;
-    font-size:  0.7em;
+    font-size: 0.7em;
     dominant-baseline: middle;
 }
 
-.month-text {
-    font-size: .7em;
+.tooltip-line {
+    fill: #8395a7;
+    fill-opacity: 0.2;
+    mix-blend-mode: multiply;
+    pointer-events: none;
 }
 
 .tooltip {
     opacity: 0;
     position: absolute;
-    top: 0;
-    left: 0;
+    /* top: 0;
+    left: 0; */
     width: 15em;
-    padding: 0.6 1em;
+    padding: 0.6em 1em;
     background: #fff;
     text-align: center;
     line-height: 1.4em;
@@ -111,12 +102,43 @@ svg {
     pointer-events: none;
 }
 
-.listener-circle {
-    fill: transparent;
+.tooltip-date {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+    font-size: 1.1em;
+    line-height: 1.4em;
 }
 
-.tooltip-line {
-    pointer-events: none;
-    fill: #8395a7;
-    mix-blend-mode: multiply;
+.tooltip-temperature {
+    font-feature-settings: 'tnum' 1;
+}
+
+.tooltip-metric {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 0.8em;
+    line-height: 1.3em;
+    transition: all 0.1s ease-out;
+}
+
+.tooltip-metric div:first-child {
+    font-weight: 800;
+    padding-right: 1em;
+}
+
+.tooltip-metric div:nth-child(2) {
+    font-feature-settings: 'tnum' 1;
+}
+
+.tooltip-cloud {
+    color: #8395a7;
+}
+
+.tooltip-uv {
+    color: #feca57;
+}
+
+.listener-circle {
+    fill: transparent;
 }
