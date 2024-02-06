@@ -11,10 +11,31 @@ const formatDate = d3.timeFormat("%-b %-d");
 
 const Timeline = ({ data, xAccessor, yAccessor, label }) => {
   const [ref, dms] = useChartDimensions();
-  console.log(dms);
+
+  const xScale = d3.scaleTime()
+    .domain(d3.extent(data, xAccessor))
+    .range([0, dms.boundedWidth]);
+
+  const yScale = d3.scaleLinear()
+    .domain(d3.extent(data, yAccessor))
+    .range([0, dms.boundedHeight])
+    .nice();
+
+  const xAccessorScaled = d => xScale(xAccessor(d));
+  const yAccessorScaled = d => yScale(yAccessor(d));
+
   return (
     <div className="Timeline" ref={ref}>
-      <Chart dimensions={dms}></Chart>
+      <Chart dimensions={dms}>
+        <Line
+          data={data}
+          xAccessor={xAccessorScaled}
+          yAccessor={yAccessorScaled}
+          // interpolation={d3.curveStepAfter}
+          // interpolation={d3.curveLinear}
+        >
+        </Line>
+      </Chart>
     </div>
   );
 };
